@@ -1,11 +1,13 @@
-from distutils.core import setup
+from setuptools import setup
 
 setup(
     name='MapDatumTrans',
-    packages=['map_datum_trans'],  # Chose the same as "name"
-    version='0.0.1',
+    packages=['MapDatumTrans'],
+    version='0.1.1',
     license='MIT',
     description='A Transformer for different map datum, include WGS84, GCJ-02, BD-09',
+    long_description_content_type='text/markdown',
+    long_description=open("README.md", "r", encoding='utf-8').read(),
     author='Bluice Zhen',
     author_email='bluice.zhen@gmail.com',
     url='https://github.com/bluicezhen/MapDatumTrans',
@@ -19,4 +21,5 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
     ],
+
 )

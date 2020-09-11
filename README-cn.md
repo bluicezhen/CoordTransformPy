@@ -1,23 +1,22 @@
-# 坐标转换模块
+# MapDatumTrans
 
-此模块用于百度坐标系(bd-09)、火星坐标系(国测局坐标系、gcj02)、WGS84坐标系的相互转换，并提供中文地址到坐标的转换功能，仅使用Python标准模块，无其他依赖。
+> MapDatumTranss is a transformer for map datum，include WGS84, GCJ-02 and BD-09.
 
-需要js版本可以移步[coordtransform](https://github.com/wandergis/coordtransform)
-
-## 使用说明(coordTransform_utils.py)
-
-### 方法说明
+## 安装：
 
 ```bash
-# 方法说明
-gcj02_to_bd09(lng, lat) # 火星坐标系->百度坐标系
-bd09_to_gcj02(lng, lat) # 百度坐标系->火星坐标系
-wgs84_to_gcj02(lng, lat) # WGS84坐标系->火星坐标系
-gcj02_to_wgs84(lng, lat) # 火星坐标系->WGS84坐标系
-bd09_to_wgs84(lng, lat) # 百度坐标系->WGS84坐标系
-wgs84_to_bd09(lng, lat) # WGS84坐标系->百度坐标系
+pip install MapDatumTrans
+```
 
-# 中文地址到火星坐标系, 需要高德地图API Key
-g = Geocoding('API_KEY')  # 这里填写你的高德Api_Key
-g.geocode('北京市朝阳区朝阳公园')
+## 使用：
+
+```bash
+import MapDatumTrans
+
+MapDatumTrans.gcj02_to_bd09(lng, lat)   # GCJ02坐标系 转换为 BD-09坐标系
+MapDatumTrans.bd09_to_gcj02(lng, lat)   # BD-09坐标系 转换为 GCJ02坐标系
+MapDatumTrans.wgs84_to_gcj02(lng, lat)  # WGS84坐标系 转换为 GCJ02坐标系
+MapDatumTrans.gcj02_to_wgs84(lng, lat)  # GCJ02坐标系 转换为 WGS84坐标系
+MapDatumTrans.bd09_to_wgs84(lng, lat)   # BD-09坐标系 转换为 WGS84坐标系
+MapDatumTrans.wgs84_to_bd09(lng, lat)   # WGS84坐标系 转换为 BD-09坐标系
 ```
