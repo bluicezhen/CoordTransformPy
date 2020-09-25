@@ -7,7 +7,7 @@ a = 6378245.0  # 长半轴
 ee = 0.00669342162296594323  # 偏心率平方
 
 
-def gcj02_to_bd09(lng, lat):
+def gcj02_to_bd09(lat, lng):
     """
     火星坐标系(GCJ-02)转百度坐标系(BD-09)
     谷歌、高德——>百度
@@ -19,10 +19,10 @@ def gcj02_to_bd09(lng, lat):
     theta = math.atan2(lat, lng) + 0.000003 * math.cos(lng * x_pi)
     bd_lng = z * math.cos(theta) + 0.0065
     bd_lat = z * math.sin(theta) + 0.006
-    return [bd_lng, bd_lat]
+    return [bd_lat, bd_lng]
 
 
-def bd09_to_gcj02(bd_lon, bd_lat):
+def bd09_to_gcj02(bd_lat, bd_lon):
     """
     百度坐标系(BD-09)转火星坐标系(GCJ-02)
     百度——>谷歌、高德
@@ -36,10 +36,10 @@ def bd09_to_gcj02(bd_lon, bd_lat):
     theta = math.atan2(y, x) - 0.000003 * math.cos(x * x_pi)
     gg_lng = z * math.cos(theta)
     gg_lat = z * math.sin(theta)
-    return [gg_lng, gg_lat]
+    return [gg_lat, gg_lng]
 
 
-def wgs84_to_gcj02(lng, lat):
+def wgs84_to_gcj02(lat, lng):
     """
     WGS84转GCJ02(火星坐标系)
     :param lng:WGS84坐标系的经度
@@ -56,10 +56,10 @@ def wgs84_to_gcj02(lng, lat):
     dlng = (dlng * 180.0) / (a / sqrtmagic * math.cos(radlat) * pi)
     mglat = lat + dlat
     mglng = lng + dlng
-    return [mglng, mglat]
+    return [mglat, mglng]
 
 
-def gcj02_to_wgs84(lng, lat):
+def gcj02_to_wgs84(lat, lng):
     """
     GCJ02(火星坐标系)转GPS84
     :param lng:火星坐标系的经度
@@ -76,20 +76,20 @@ def gcj02_to_wgs84(lng, lat):
     dlng = (dlng * 180.0) / (a / sqrtmagic * math.cos(radlat) * pi)
     mglat = lat + dlat
     mglng = lng + dlng
-    return [lng * 2 - mglng, lat * 2 - mglat]
+    return [lat * 2 - mglat, lng * 2 - mglng]
 
 
-def bd09_to_wgs84(bd_lon, bd_lat):
-    lon, lat = bd09_to_gcj02(bd_lon, bd_lat)
+def bd09_to_wgs84(bd_lat, bd_lon):
+    lat, lon = bd09_to_gcj02(bd_lon, bd_lat)
     return gcj02_to_wgs84(lon, lat)
 
 
 def wgs84_to_bd09(lon, lat):
-    lon, lat = wgs84_to_gcj02(lon, lat)
+    lat, lon = wgs84_to_gcj02(lon, lat)
     return gcj02_to_bd09(lon, lat)
 
 
-def _transformlat(lng, lat):
+def _transformlat(lat, lng):
     ret = -100.0 + 2.0 * lng + 3.0 * lat + 0.2 * lat * lat + \
           0.1 * lng * lat + 0.2 * math.sqrt(math.fabs(lng))
     ret += (20.0 * math.sin(6.0 * lng * pi) + 20.0 *
@@ -101,7 +101,7 @@ def _transformlat(lng, lat):
     return ret
 
 
-def _transformlng(lng, lat):
+def _transformlng(lat, lng):
     ret = 300.0 + lng + 2.0 * lat + 0.1 * lng * lng + \
           0.1 * lng * lat + 0.1 * math.sqrt(math.fabs(lng))
     ret += (20.0 * math.sin(6.0 * lng * pi) + 20.0 *
@@ -114,13 +114,13 @@ def _transformlng(lng, lat):
 
 
 if __name__ == '__main__':
-    lng_1 = 128.543
-    lat_1 = 37.065
-    result1 = gcj02_to_bd09(lng_1, lat_1)
-    result2 = bd09_to_gcj02(lng_1, lat_1)
-    result3 = wgs84_to_gcj02(lng_1, lat_1)
-    result4 = gcj02_to_wgs84(lng_1, lat_1)
-    result5 = bd09_to_wgs84(lng_1, lat_1)
-    result6 = wgs84_to_bd09(lng_1, lat_1)
+    lat_1 = 22.519539
+    lng_1 = 113.929511
+    result1 = gcj02_to_bd09(lat_1, lng_1)
+    result2 = bd09_to_gcj02(lat_1, lng_1)
+    result3 = wgs84_to_gcj02(lat_1, lng_1)
+    result4 = gcj02_to_wgs84(lat_1, lng_1)
+    result5 = bd09_to_wgs84(lat_1, lng_1)
+    result6 = wgs84_to_bd09(lat_1, lng_1)
 
     print(result1, result2, result3, result4, result5, result6)
