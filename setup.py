@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='MapDatumTrans',
     packages=['MapDatumTrans'],
-    version='1.0.0',
+    version='1.0.1',
     license='MIT',
     description='A Transformer for different map datum, include WGS84, GCJ-02, BD-09',
     long_description_content_type='text/markdown',
